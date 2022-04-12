@@ -2,9 +2,12 @@
 Simple terminal chance games: includes 
 > coinflip,
 > russian roulette
-# Installation
 
-## Linux systems
+# Running file without installing
+1. Run `chmod +x tty-chance-games`
+2. then run `./tty-chance-games`
+
+# Installation for Linux systems
 1. Run `chmod +x install.sh`
 2. type `./install.sh`
 The install script should copy the file over to /usr/bin. From there you can run `tty-chance-games`
