@@ -1,0 +1,68 @@
+#!/bin/bash
+
+# Games included:
+# Russian Roulette
+# Coinflip
+# 
+
+# Game Function Definitions #
+
+# COINFLIP #
+function coinflip() {
+	RANDINT=$(($RANDOM%2))
+	if [[ $RANDINT == 1  ]]; then
+		echo "Heads"
+	else
+		echo "Tails"
+	fi
+}
+# RUSSIAN ROULETTE #
+function russianroulette() {
+	RANDINT=$(($RANDOM%6))
+	function game() {
+		echo "*click*"
+		if [[ $RANDINT -ne 0 ]]; then
+
+			echo "You live, do you wish to push your luck?: [Y/n]"
+			read luck
+			if [[ $luck == y ]] || [[ $luck == Y  ]]; then
+				shoot
+			elif [[ $luck == n ]] || [[ $luck == N ]]; then
+				echo "// Ending game..."
+				echo "// You were" $RANDINT "shot(s) away from losing!"
+			else
+				echo "// Unknown input... assuming no."
+				echo "// You were" $RANDINT "shot(s) away from losing!"
+			fi
+		else
+			echo "*BANG!!*"
+			echo "// You Died! Ending game..."
+		fi
+	}
+	function shoot() {
+		RANDINT=$(($RANDINT - 1))
+		game
+	}
+	game
+}
+
+# choosing a game # 
+
+function mainmenu() {
+	echo -e "// What game would you like to play? \n ENTER CHOICE NUMBER: "
+	echo "// 1.) Russian Roulette"
+	echo "// 2.) Coinflip"
+	echo
+	read choice
+	if [[ $choice == 1  ]]; then
+		russianroulette
+	elif [[ $choice == 2 ]]; then 
+		coinflip
+	else
+		echo "// Unknown choice, please enter a valid choice"
+		mainmenu
+	fi
+	echo "// ending script"
+}
+echo "// Main Menu"
+mainmenu
