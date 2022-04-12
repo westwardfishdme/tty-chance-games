@@ -1,6 +1,6 @@
 # tty-chance-games
 Simple terminal chance games: includes 
-> coinflip
+> coinflip,
 > russian roulette
 # Installation
 
