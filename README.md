@@ -14,7 +14,7 @@ The install script should copy the file over to /usr/bin. From there you can run
 
 
 # Planned updates:
-1. Planning to add [Rock Paper Scissors]
+1. ~~Planning to add [Rock Paper Scissors]~~
 2. A functioning repeat of the script.
 
 
