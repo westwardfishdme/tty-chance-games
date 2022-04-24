@@ -1,7 +1,6 @@
 # tty-chance-games
 Simple terminal chance games: includes 
-> coinflip,
-> russian roulette
+`coinflip, russian roulette, Rock Paper Scissors `
 
 # Running file without installing
 1. Run `chmod +x tty-chance-games`
