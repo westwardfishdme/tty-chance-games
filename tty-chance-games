@@ -3,7 +3,7 @@
 # Games included:
 # Russian Roulette
 # Coinflip
-# 
+# Rock Paper Scissors 
 
 # Game Function Definitions #
 
@@ -12,8 +12,7 @@ function coinflip() {
 	RANDINT=$(($RANDOM%2))
 	if [[ $RANDINT == 1  ]]; then
 		echo "Heads"
-	else
-		echo "Tails"
+	else echo "Tails"
 	fi
 }
 # RUSSIAN ROULETTE #
@@ -46,18 +45,57 @@ function russianroulette() {
 	game
 }
 
+# ROCK PAPER SCISSORS #
+function RockPaperScissors(){
+	echo "CHOICES: {rock | paper | scissors}"
+	read throw
+	# Parse User Input to make it lowercase
+	if [[ $throw == "ROCK" ]] || [[ $throw == "rock" ]]; then
+		throw="rock"
+	elif [[ $throw == "PAPER" ]] || [[ $throw == "paper" ]]; then
+		throw="paper"
+	elif [[ $throw == "SCISSORS" ]] || [[ $throw == "scissors" ]]; then
+		throw="scissors"
+	else
+		echo "unknown input"
+	fi
+
+	# AI adversary
+	RANDINT=$(($RANDOM%3))
+	if [[ $RANDINT == 0 ]]; then
+		adv="rock"
+	elif [[ $RANDINT == 1  ]]; then
+		adv="scissors"
+	else
+		adv="paper"
+	fi
+	# Win Conditions
+	if [[ $throw == "rock" && $adv == "scissors" ]] || [[ $throw == "paper" && $adv == "rock" ]] || [[ $throw == "scissors" && $adv == "paper" ]]; then
+		echo $throw ">" $adv
+		echo "You Win!" 
+	# Lose conditions
+	elif [[ $throw == "scissors" && $adv == "rock" ]] || [[ $throw == "rock" && $adv == "paper" ]] || [[ $throw == "paper" && $adv == "scissors" ]]; then
+		echo $throw "<" $adv
+		echo "You Lose..."
+	elif [[ $throw == $adv ]]; then
+		echo $throw "=" $adv
+		echo "It's a Tie!"
+	fi
+	}
 # choosing a game # 
 
 function mainmenu() {
 	echo -e "// What game would you like to play? \n ENTER CHOICE NUMBER: "
 	echo "// 1.) Russian Roulette"
 	echo "// 2.) Coinflip"
-	echo
+	echo "// 3.) Rock Paper Scissors"
 	read choice
 	if [[ $choice == 1  ]]; then
 		russianroulette
 	elif [[ $choice == 2 ]]; then 
 		coinflip
+	elif [[ $choice == 3 ]]; then
+		RockPaperScissors
 	else
 		echo "// Unknown choice, please enter a valid choice"
 		mainmenu
