@@ -5,37 +5,56 @@
 # Coinflip
 # Rock Paper Scissors 
 
-# Game Function Definitions #
+
+
+
+
+
+# Game Functions #
 
 # COINFLIP #
 function coinflip() {
 	RANDINT=$(($RANDOM%2))
+	echo 
+	echo -e "\e[34m # COINFLIP # \e[0m"
+	echo flipping a coin...
 	if [[ $RANDINT == 1  ]]; then
-		echo "Heads"
-	else echo "Tails"
+		sleep 1
+		echo -e "\e[32mHeads\e[0m"
+	else 
+		sleep 1
+		echo -e "\e[32mTails\e[0m"
 	fi
 }
+
 # RUSSIAN ROULETTE #
 function russianroulette() {
 	RANDINT=$(($RANDOM%6))
+	echo -e "\e[36m # Russian Roulette #\e[0m"
 	function game() {
+		sleep 0.5
 		echo "*click*"
+		sleep 1
 		if [[ $RANDINT -ne 0 ]]; then
-
-			echo "You live, do you wish to push your luck?: [Y/n]"
-			read luck
+			echo -e "\e[32mYou live, do you wish to push your luck?:\e[0m [Y/n]"
+			read -n1 luck
 			if [[ $luck == y ]] || [[ $luck == Y  ]]; then
+				echo
+				sleep 1
 				shoot
 			elif [[ $luck == n ]] || [[ $luck == N ]]; then
+				echo
 				echo "// Ending game..."
-				echo "// You were" $RANDINT "shot(s) away from losing!"
+				echo -e "// You were \e[31m$RANDINT shot(s)\e[0m away from losing!"
 			else
+				echo
 				echo "// Unknown input... assuming no."
-				echo "// You were" $RANDINT "shot(s) away from losing!"
+				echo -e "// You were \e[31m$RANDINT shot(s)\e[0m away from losing!"
 			fi
 		else
-			echo "*BANG!!*"
-			echo "// You Died! Ending game..."
+			sleep 0.5
+			echo -e "\e[31m\e[1m*BANG!!*\e[21m\e[0m"
+			echo -e "\e[31m// You Died! Ending game...\e[0m"
 		fi
 	}
 	function shoot() {
@@ -47,18 +66,10 @@ function russianroulette() {
 
 # ROCK PAPER SCISSORS #
 function RockPaperScissors(){
+	echo -e "\e[32m # Rock Paper Scissors # \e[0m"
 	echo "CHOICES: {rock | paper | scissors}"
 	read throw
-	# Parse User Input to make it lowercase
-	if [[ $throw == "ROCK" ]] || [[ $throw == "rock" ]]; then
-		throw="rock"
-	elif [[ $throw == "PAPER" ]] || [[ $throw == "paper" ]]; then
-		throw="paper"
-	elif [[ $throw == "SCISSORS" ]] || [[ $throw == "scissors" ]]; then
-		throw="scissors"
-	else
-		echo "unknown input"
-	fi
+	throw=$(echo $throw|awk '{print tolower($0)}') # Parse User Input to make it lowercase
 
 	# AI adversary
 	RANDINT=$(($RANDOM%3))
@@ -69,38 +80,51 @@ function RockPaperScissors(){
 	else
 		adv="paper"
 	fi
+
 	# Win Conditions
 	if [[ $throw == "rock" && $adv == "scissors" ]] || [[ $throw == "paper" && $adv == "rock" ]] || [[ $throw == "scissors" && $adv == "paper" ]]; then
 		echo $throw ">" $adv
-		echo "You Win!" 
+		echo -e "\e[32mYou Win!\e[0m" 
+
 	# Lose conditions
 	elif [[ $throw == "scissors" && $adv == "rock" ]] || [[ $throw == "rock" && $adv == "paper" ]] || [[ $throw == "paper" && $adv == "scissors" ]]; then
 		echo $throw "<" $adv
-		echo "You Lose..."
+		echo -e "\e[31mYou Lose...\e[0m"
 	elif [[ $throw == $adv ]]; then
 		echo $throw "=" $adv
-		echo "It's a Tie!"
+		echo -e "\e[34mIt's a Tie!\e[0m"
+	else
+		echo "Hey! you can't throw" $throw"!"
 	fi
+
 	}
+#############################################################################################################################################################
+
 # choosing a game # 
 
 function mainmenu() {
 	echo -e "// What game would you like to play? \n ENTER CHOICE NUMBER: "
-	echo "// 1.) Russian Roulette"
-	echo "// 2.) Coinflip"
-	echo "// 3.) Rock Paper Scissors"
-	read choice
+	echo "// (1) Russian Roulette"
+	echo "// (2) Coinflip"
+	echo "// (3) Rock Paper Scissors"
+	echo "// (q) Exit to terminal"
+	read -n1 choice
+	echo
 	if [[ $choice == 1  ]]; then
 		russianroulette
 	elif [[ $choice == 2 ]]; then 
 		coinflip
 	elif [[ $choice == 3 ]]; then
 		RockPaperScissors
+	elif [[ $choice == q ]] || [[ $choice == Q ]]; then
+		echo "goodbye!"
 	else
 		echo "// Unknown choice, please enter a valid choice"
 		mainmenu
 	fi
-	echo "// ending script"
+	
 }
-echo "// Main Menu"
+echo -e "\e[34m// Main Menu\e[0m"
 mainmenu
+sleep 1
+echo -e "\e[33m// Exiting script...\e[0m"
