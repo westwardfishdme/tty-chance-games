@@ -37,7 +37,7 @@ function russianroulette() {
 		sleep 1
 		if [[ $RANDINT -ne 0 ]]; then
 			echo -e "\e[32mYou live, do you wish to push your luck?:\e[0m [Y/n]"
-			read -n1 luck
+			read -s -n1 luck
 			if [[ $luck == y ]] || [[ $luck == Y  ]]; then
 				echo
 				sleep 1
@@ -81,6 +81,19 @@ function RockPaperScissors(){
 		adv="paper"
 	fi
 
+	# Rock Paper Scissors Shoot!
+	echo
+	sleep .5
+	echo "Rock"
+	sleep .5
+	echo "Paper"
+	sleep .5
+	echo "Scissors"
+	sleep .5
+	echo "..."
+	sleep .5
+	echo "Shoot!"
+
 	# Win Conditions
 	if [[ $throw == "rock" && $adv == "scissors" ]] || [[ $throw == "paper" && $adv == "rock" ]] || [[ $throw == "scissors" && $adv == "paper" ]]; then
 		echo $throw ">" $adv
@@ -90,6 +103,7 @@ function RockPaperScissors(){
 	elif [[ $throw == "scissors" && $adv == "rock" ]] || [[ $throw == "rock" && $adv == "paper" ]] || [[ $throw == "paper" && $adv == "scissors" ]]; then
 		echo $throw "<" $adv
 		echo -e "\e[31mYou Lose...\e[0m"
+	# Tie condition
 	elif [[ $throw == $adv ]]; then
 		echo $throw "=" $adv
 		echo -e "\e[34mIt's a Tie!\e[0m"
@@ -108,7 +122,7 @@ function mainmenu() {
 	echo "// (2) Coinflip"
 	echo "// (3) Rock Paper Scissors"
 	echo "// (q) Exit to terminal"
-	read -n1 choice
+	read -s -n1 choice
 	echo
 	if [[ $choice == 1  ]]; then
 		russianroulette
